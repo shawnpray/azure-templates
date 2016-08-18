@@ -1,0 +1,232 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_win_server_vm1_adminPassword": {
+            "type": "SecureString"
+        },
+        "virtualMachines_win_server_vm1_primary": {
+            "type": "Bool"
+        },
+        "availabilitySets_test_avail_set1_name": {
+            "defaultValue": "test-avail-set1",
+            "type": "String"
+        },
+        "virtualMachines_win_server_vm1_name": {
+            "defaultValue": "win-server-vm1",
+            "type": "String"
+        },
+        "networkInterfaces_win_server_vm1553_name": {
+            "defaultValue": "win-server-vm1553",
+            "type": "String"
+        },
+        "networkSecurityGroups_win_server_vm1_nsg_name": {
+            "defaultValue": "win-server-vm1-nsg",
+            "type": "String"
+        },
+        "publicIPAddresses_win_server_vm1_ip_name": {
+            "defaultValue": "win-server-vm1-ip",
+            "type": "String"
+        },
+        "virtualNetworks_test_virtual_network_name": {
+            "defaultValue": "test-virtual-network",
+            "type": "String"
+        },
+        "storageAccounts_testresourcegroupdiag745_name": {
+            "defaultValue": "testresourcegroupdiag745",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+
+        {
+            "comments": "Generalized from resource: '/subscriptions/fc863202-6431-4d0e-8cdf-5dd9b055c084/resourceGroups/test-resource-group/providers/Microsoft.Compute/availabilitySets/test-avail-set1'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySets_test_avail_set1_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 3
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fc863202-6431-4d0e-8cdf-5dd9b055c084/resourceGroups/test-resource-group/providers/Microsoft.Compute/virtualMachines/win-server-vm1'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_win_server_vm1_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_test_avail_set1_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_A0"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2012-R2-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_win_server_vm1_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_testresourcegroupdiag745_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_win_server_vm1_name'),'201671714107.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_win_server_vm1_name')]",
+                    "adminUsername": "shawn",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_win_server_vm1_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "properties": {
+                                "primary": "[parameters('virtualMachines_win_server_vm1_primary')]"
+                            },
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_win_server_vm1553_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_test_avail_set1_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_testresourcegroupdiag745_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_win_server_vm1553_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fc863202-6431-4d0e-8cdf-5dd9b055c084/resourceGroups/test-resource-group/providers/Microsoft.Network/networkInterfaces/win-server-vm1553'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_win_server_vm1553_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.0.0.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_win_server_vm1_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_test_virtual_network_name')), '/subnets/default')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_win_server_vm1_nsg_name'))]"
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_win_server_vm1_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_test_virtual_network_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_win_server_vm1_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fc863202-6431-4d0e-8cdf-5dd9b055c084/resourceGroups/test-resource-group/providers/Microsoft.Network/networkSecurityGroups/win-server-vm1-nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_win_server_vm1_nsg_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "default-allow-rdp",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fc863202-6431-4d0e-8cdf-5dd9b055c084/resourceGroups/test-resource-group/providers/Microsoft.Network/publicIPAddresses/win-server-vm1-ip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_win_server_vm1_ip_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fc863202-6431-4d0e-8cdf-5dd9b055c084/resourceGroups/test-resource-group/providers/Microsoft.Network/virtualNetworks/test-virtual-network'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_test_virtual_network_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/fc863202-6431-4d0e-8cdf-5dd9b055c084/resourceGroups/test-resource-group/providers/Microsoft.Storage/storageAccounts/testresourcegroupdiag745'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_testresourcegroupdiag745_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        }
+    ]
+}
