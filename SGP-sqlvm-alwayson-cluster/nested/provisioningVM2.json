@@ -322,7 +322,7 @@
               "name": "[concat(parameters('sqlVMName'), copyindex(),'-data-disk1')]",
               "caching": "None",
               "createOption": "empty",
-              "diskSizeGB": 1000,
+              "diskSizeGB": 128,
               "lun": 0
             },
             {
@@ -332,7 +332,7 @@
               "name": "[concat(parameters('sqlVMName'), copyindex(),'-data-disk2')]",
               "caching": "None",
               "createOption": "empty",
-              "diskSizeGB": 1000,
+              "diskSizeGB": 128,
               "lun": 1
             }
           ]
