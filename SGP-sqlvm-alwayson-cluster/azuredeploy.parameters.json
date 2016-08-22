@@ -6,13 +6,13 @@
          "value":"alwaysonadmin"
       },
       "adminPassword":{  
-         "value":"GEN-PASSWORD"
+         "value":"TestVM-12345"
       },
       "sqlServerServiceAccountUserName":{  
          "value":"sqlservice"
       },
       "sqlServerServiceAccountPassword":{  
-         "value":"GEN-PASSWORD"
+         "value":"TestVM-12345"
       },
       "sqlStorageAccountType":{  
          "value":"Premium_LRS"
@@ -21,10 +21,10 @@
          "value":"Standard_LRS"
       },
       "sqlStorageAccountName":{  
-         "value":"GEN-UNIQUE"
+         "value":"sgpsqlstorage"
       },
       "dcStorageAccountName":{  
-         "value":"GEN-UNIQUE"
+         "value":"sgpdcstorage"
       },
       "adVMSize":{  
          "value":"Standard_D1_v2"
