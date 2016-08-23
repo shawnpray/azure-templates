@@ -30,7 +30,7 @@
          "value":"Standard_D1_v2"
       },
       "sqlVMSize":{  
-         "value":"Standard_DS4"
+         "value":"Standard_DS1"
       },
       "witnessVMSize":{  
          "value":"Standard_DS1"

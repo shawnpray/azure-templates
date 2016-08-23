@@ -96,7 +96,7 @@
       "metadata": {
         "description": "The size of the SQL VMs Created"
       },
-      "defaultValue": "Standard_DS4"
+      "defaultValue": "Standard_DS1"
     },
     "witnessVMSize": {
       "type": "string",
