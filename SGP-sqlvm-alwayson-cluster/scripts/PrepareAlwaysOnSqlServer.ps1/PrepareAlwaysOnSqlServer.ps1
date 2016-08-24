@@ -54,7 +54,7 @@ configuration PrepareAlwaysOnSqlServer
         {
             DriveSize = $NumberOfDisks
             NumberOfColumns = $NumberOfDisks
-            BytesPerDisk = 1099511627776
+            BytesPerDisk = 137438953472
             OptimizationType = $WorkloadType
             RebootVirtualMachine = $RebootVirtualMachine
         }
