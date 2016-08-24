@@ -3,25 +3,25 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "newStorageAccountName": {
-      "value": "#####"
+      "value": "serveriis1st1"
     },
     "vmName": {
-      "value": "iisservervm"
+      "value": "server-iis-1"
     },
     "vmSize": {
-      "value": "Standard_A2"
+      "value": "Standard_A0"
     },
     "imageSKU": {
       "value": "2012-R2-Datacenter"
     },
     "adminUsername": {
-      "value": "ChangeAdminName"
+      "value": "shawn"
     },
     "adminPassword": {
-      "value": "ChangeThisPassword26gR2*pECq;!YxRu"
+      "value": "TestVM-12345"
     },
     "modulesUrl": {
-      "value": "https://github.com/Azure/azure-quickstart-templates/raw/master/dsc-extension-iis-server-windows-vm/ContosoWebsite.ps1.zip"
+      "value": "https://github.com/shawnpray/azure-templates/raw/master/SGP-dcs-iis-vm/ContosoWebsite.ps1.zip"
     },
     "configurationFunction": {
       "value": "ContosoWebsite.ps1\\ContosoWebsite"
