@@ -1,5 +1,5 @@
 #
-# Copyright="© Microsoft Corporation. All rights reserved."
+# Copyright="ï¿½ Microsoft Corporation. All rights reserved."
 #
 
 configuration CreateFailoverCluster
@@ -92,7 +92,7 @@ configuration CreateFailoverCluster
         {
             DriveSize = $NumberOfDisks
             NumberOfColumns = $NumberOfDisks
-            BytesPerDisk = 1099511627776
+            BytesPerDisk = 137438953472
             OptimizationType = $WorkloadType
             RebootVirtualMachine = $RebootVirtualMachine
         }
